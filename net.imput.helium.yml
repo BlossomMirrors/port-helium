@@ -124,7 +124,7 @@ modules:
     buildsystem: simple
     only-arches: [x86_64]
     build-commands:
-      - unzip -o widevine.crx3 manifest.json "_platform_specific/linux_x64/libwidevinecdm.so" -d widevine
+      - unzip -o widevine.crx3 manifest.json "_platform_specific/linux_x64/libwidevinecdm.so" -d widevine || test -f widevine/manifest.json
       - install -Dm755 widevine/_platform_specific/linux_x64/libwidevinecdm.so /app/lib/helium/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
       - install -Dm644 widevine/manifest.json /app/lib/helium/WidevineCdm/manifest.json
     sources:
