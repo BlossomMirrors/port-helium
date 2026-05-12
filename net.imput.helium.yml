@@ -119,17 +119,3 @@ modules:
         path: icons/256x256/net.imput.helium.png
       - type: file
         path: icons/512x512/net.imput.helium.png
-
-  - name: widevine
-    buildsystem: simple
-    only-arches: [x86_64]
-    build-commands:
-      - unzip -o widevine.crx3 manifest.json "_platform_specific/linux_x64/libwidevinecdm.so" -d widevine || test -f widevine/manifest.json
-      - install -Dm755 widevine/_platform_specific/linux_x64/libwidevinecdm.so /app/lib/helium/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
-      - install -Dm644 widevine/manifest.json /app/lib/helium/WidevineCdm/manifest.json
-    sources:
-      - type: file
-        only-arches: [x86_64]
-        url: https://edgedl.me.gvt1.com/edgedl/release2/chrome_component/accssjtqfpf5qicscrptql4jyyxa_4.10.2934.0/oimompecagnajdejgnnjijobebaeigek_4.10.2934.0_linux_ph722a3wl2goebkpserszm6bde.crx3
-        sha512: 421214210a09a9f9ed8ce482ef857f1c2b29ce1739240d1ec99a61caa3d80db3393752275722bdf5f503489f12a753215fe8a0c82de3aca23780d4ffe5792eb1
-        dest-filename: widevine.crx3

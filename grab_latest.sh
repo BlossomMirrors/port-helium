@@ -79,25 +79,4 @@ sed "/arm64_linux\.tar\.xz/{n;s/sha256: [a-f0-9]*/sha256: $NEW_SHA256_ARM/;}" "$
 
 printf "   Manifest updated successfully.\n"
 
-printf "   Updating Widevine CDM source...\n"
-
-WIDEVINE_JSON=$(curl -fsSL \
-  https://raw.githubusercontent.com/mozilla-firefox/firefox/refs/heads/main/toolkit/content/gmp-sources/widevinecdm.json)
-
-NEW_WIDEVINE_URL=$(printf "%s" "$WIDEVINE_JSON" | \
-  jq -r '.vendors["gmp-widevinecdm"].platforms["Linux_x86_64-gcc3"].mirrorUrls[0]')
-NEW_WIDEVINE_SHA512=$(printf "%s" "$WIDEVINE_JSON" | \
-  jq -r '.vendors["gmp-widevinecdm"].platforms["Linux_x86_64-gcc3"].hashValue')
-
-if [ -z "$NEW_WIDEVINE_URL" ] || [ "$NEW_WIDEVINE_URL" = "null" ]; then
-    printf "   Warning: failed to fetch Widevine URL, skipping.\n"
-else
-    sed "s|url: https://edgedl.me.gvt1.com/edgedl/release2/chrome_component/.*\.crx3|url: $NEW_WIDEVINE_URL|g" \
-        "$MANIFEST_FILE" > "_" && mv "_" "$MANIFEST_FILE"
-    sed "/url: https:\/\/edgedl\.me\.gvt1\.com\/edgedl\/release2\/chrome_component\//{n;s/sha512: [a-f0-9]*/sha512: $NEW_WIDEVINE_SHA512/;}" \
-        "$MANIFEST_FILE" > "_" && mv "_" "$MANIFEST_FILE"
-    printf "   Widevine CDM updated to %s.\n" \
-        "$(printf "%s" "$WIDEVINE_JSON" | jq -r '.vendors["gmp-widevinecdm"].version')"
-fi
-
 printf "   Done.\n"
