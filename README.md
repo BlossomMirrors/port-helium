@@ -4,7 +4,8 @@ This repository contains the [Flatpak](https://flatpak.org/) manifest for **Heli
 
 It wraps the official prebuilt binaries from the [Helium Linux project](https://github.com/imputnet/helium-linux) into a partially sandboxed Flatpak environment,
 ensuring it runs consistently across different Linux distributions.  
-Full sandbox protection is currently not supported.
+Sandbox protection is supported via Zypak.  
+Automatic updates are available on [BlossomOS](https://blossomos.org/).
 
 ---
 

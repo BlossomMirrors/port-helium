@@ -97,14 +97,6 @@ jobs:
           path: artifacts
           merge-multiple: true
 
-      - name: Install GH CLI
-        run: |
-          curl -s https://api.github.com/repos/cli/cli/releases/latest \
-            | python3 -c "import sys, json; print([a['browser_download_url'] for a in json.load(sys.stdin)['assets'] if 'linux_amd64.tar.gz' in a['name']][0])" \
-            | xargs curl -L -o gh.tar.gz
-          tar -xzf gh.tar.gz
-          sudo install -Dm755 gh_*_linux_amd64/bin/gh /usr/local/bin/gh
-
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
