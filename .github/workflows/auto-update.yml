@@ -17,7 +17,7 @@ jobs:
     outputs:
       changes_detected: ${{ steps.check.outputs.changes_detected }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           
@@ -55,7 +55,7 @@ jobs:
             runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
 
@@ -77,7 +77,7 @@ jobs:
           flatpak build-bundle --arch=${{ matrix.flatpak_arch }} repo "helium-${VERSION}-${{ matrix.file_arch }}.flatpak" net.imput.helium
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: flatpak-${{ matrix.file_arch }}
           path: "*.flatpak"
@@ -87,12 +87,12 @@ jobs:
     needs: [update-manifest, build-flatpak]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: artifacts
           merge-multiple: true
