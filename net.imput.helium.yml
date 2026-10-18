@@ -110,6 +110,9 @@ modules:
       - install -Dm755 helium.sh /app/bin/helium
       - install -Dm644 cobalt.ini /app/etc/cobalt.ini
 
+      - install -Dm644 fonts-local.conf /app/etc/fonts/local.conf
+      - ln -s /run/host/fonts /app/share/host-fonts
+
       - install -Dm644 net.imput.helium.desktop /app/share/applications/net.imput.helium.desktop
 
       - mkdir -p icons/512x512 icons/256x256 icons/128x128 icons/64x64 icons/32x32
@@ -149,6 +152,8 @@ modules:
         path: helium.sh
       - type: file
         path: cobalt.ini
+      - type: file
+        path: fonts-local.conf
       - type: file
         path: icons/32x32/net.imput.helium.png
       - type: file
